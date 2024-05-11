@@ -65,7 +65,7 @@ const images = [
 ];
 const gal = document.querySelector("ul.gallery");
 
-images.forEach((image) => {
+const elements = images.map((image) => {
   //Створення сутностей//
   const li = document.createElement("li");
   li.classList.add("gallery-item");
@@ -77,22 +77,21 @@ images.forEach((image) => {
   img.src = image.preview;
   img.dataset.source = image.original;
   img.alt = image.description;
-  //img.setAttribute("width", "360px");
-
-  //Стилі//
-
-  //li.style.listStyleType = "none";
-  //gal.style.display = "flex";
-  //gal.style.flexWrap = "wrap";
-  //gal.style.gap = "24px";
-  //gal.style.justifyContent ="center";
-
-  //Розміщення в DOM//
   link.append(img);
   li.append(link);
-  gal.append(li);
+  return li;
 });
 
+//Розміщення в DOM//
+gal.append(...elements);
+
 gal.addEventListener("click", (event) => {
-    console.log(event.target.dataset.source);
-  });
+  if (event.target.classList.contains("gallery-image")) {
+    const source = event.target.dataset.source;
+    const instance = basicLightbox.create(`
+          <img src="${source}" width="800" height="600">
+      `);
+
+    instance.show();
+  }
+});

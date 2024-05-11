@@ -10,7 +10,8 @@ li {
 }
 .gallery-image {
     width: 360px;
+    height: 200px;
 }
 .gallery-image:hover {
-    width: 372px;
+  transform: scale(1.05); 
 }
